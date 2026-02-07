@@ -9,7 +9,7 @@ import { CheckCircle, ArrowRight, Zap, Box, Settings, Sliders, X } from "lucide-
 import type { Service } from "@/types";
 
 export default function Services() {
-  const { services, sendOrderConfirmation, addOrder, showNotification } = useData();
+  const { services } = useData();
   const user = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,60 +26,12 @@ export default function Services() {
     ? services
     : services.filter((s) => s.category === selectedCategory);
 
-  useEffect(() => {
-    if (user) {
-      setFormState((prev) => ({
-        ...prev,
-        name: user.name ?? "",
-        email: user.email ?? "",
-        phone: user.phone ?? "",
-      }));
-    }
-  }, [user]);
-
   const handleBookingFromDetail = () => {
     setSelectedForBooking(detailService);
     setDetailService(null);
     setTimeout(() => {
       document.getElementById("booking-section")?.scrollIntoView({ behavior: "smooth" });
     }, 200);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) {
-      showNotification("Silakan login terlebih dahulu untuk konsultasi.", "error");
-      router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
-      return;
-    }
-
-    setIsSending(true);
-
-    const newOrder = {
-      id: `REQ-${Date.now().toString().slice(-6)}`,
-      date: new Date().toISOString().split("T")[0],
-      item: selectedForBooking ? selectedForBooking.title : "General Consultation",
-      type: "service" as const,
-      status: "pending" as const,
-      amount: 0,
-      notes: formState.desc,
-      customerName: formState.name,
-      customerEmail: formState.email,
-      customerPhone: formState.phone,
-    };
-
-    try {
-      addOrder(newOrder);
-      await sendOrderConfirmation(newOrder, formState.email, formState.name);
-      showNotification("Permintaan konsultasi terkirim!", "success");
-      showNotification(`Kami akan menghubungi Anda di ${formState.email}`, "info");
-      setFormState({ ...formState, desc: "" });
-      setSelectedForBooking(null);
-    } catch {
-      showNotification("Gagal mengirim permintaan.", "error");
-    } finally {
-      setIsSending(false);
-    }
   };
 
   return (
@@ -294,7 +246,7 @@ export default function Services() {
                 <p className="text-xs text-slate-400 mt-4">Kami memerlukan login untuk tracking progress tiket Anda.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Nama</label>
