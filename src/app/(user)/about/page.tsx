@@ -34,7 +34,7 @@ export default function About() {
                         Solusi Fleksibel untuk <span className="text-brand">Eksekusi Bisnis</span>
                     </h1>
                     <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Azefine Worker hadir sebagai platform yang tidak terikat pada satu definisi kaku. Kami adalah mitra strategis yang fokus pada fleksibilitas layanan, eksekusi teknis, dan solusi lintas bidang sesuai kebutuhan Anda.
+                        Azefine Worker adalah IT Partner yang membantu bisnis (enterprise dan UMKM) merancang, membangun, menjalankan, dan mengelola solusi teknologi secara end-to-end. Kami menghadirkan tenaga profesional terkurasi yang bekerja sebagai perpanjangan tim internal Anda, dengan proses kerja yang jelas, komunikasi rapi, dan solusi yang siap dipakai serta mudah dikembangkan jangka panjang.
                     </p>
                 </div>
             </section>
@@ -169,8 +169,8 @@ export default function About() {
                                     <Layers size={20} />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-slate-900 dark:text-white text-lg">{cap}</h4>
-                                    <p className="text-slate-500 text-sm mt-1">Layanan profesional & terpercaya.</p>
+                                    <h4 className="font-bold text-slate-900 dark:text-white text-lg">{cap.title}</h4>
+                                    <p className="text-slate-500 text-sm mt-1">{cap.content}</p>
                                 </div>
                             </div>
                         ))}

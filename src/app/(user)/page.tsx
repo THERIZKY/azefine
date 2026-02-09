@@ -8,23 +8,29 @@ import {
   ArrowRight, Zap, Shield, Layers,
   CheckCircle, XCircle, AlertTriangle, Hexagon,
   TrendingUp, Activity,
-  Clock, Users, Target, Award
+  Clock, Users, Target, Award,
+  Code2, PenTool, CloudCog, Handshake, Workflow, ShieldCheck, Check, ArrowRightIcon
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SectionWrapper } from "@/components/AdminUI";
 import GalaxyBackground from "@/components/Background/GalaxyBackground";
+import Image from "next/image";
+import { buttonVariants } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 
 export default function Home() {
   const { content } = useData();
   const router = useRouter();
 
-  // Helper parsing
-  const parseList = (value?: string | string[]) => {
-    if (!value) return [];
-    if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && item.trim() !== "");
-    return value.split('\n').map((item) => item.trim()).filter(Boolean);
+  const capabilityIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+    "Web & App Development": Code2,
+    "UI/UX & Digital Design": PenTool,
+    "Cloud & Infrastructure": CloudCog,
+    "IT Consulting & Planning": Handshake,
+    "DevOps & System Automation": Workflow,
+    "IT Support & Maintenance": ShieldCheck,
   };
 
   type SectionStyle = {
@@ -43,7 +49,7 @@ export default function Home() {
     hero: { variant: "default", padding: "normal", align: "left" },
     problemSolution: { variant: "default", padding: "normal", align: "center" },
     capabilities: { variant: "default", padding: "normal", align: "center" },
-    process: { variant: "default", padding: "normal", align: "center" },
+    process: { variant: "brand", padding: "normal", align: "center" },
     whyUs: { variant: "default", padding: "normal", align: "center" },
     cta: { variant: "brand", padding: "loose", align: "center" },
   };
@@ -245,17 +251,20 @@ export default function Home() {
           <SectionTitle title="Lingkup Kapabilitas" subtitle="Ekosistem layanan yang saling mendukung." align={capabilitiesAlign} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-            {content.capabilitiesList.map((cap, idx) => (
-              <Card key={idx} className="p-8 flex items-start gap-4 group transition-all duration-300 hover:-translate-y-1 relative z-0 hover:z-10 will-change-transform">
-                <div className="p-4 bg-slate-100 dark:bg-slate-700/50 rounded-2xl text-slate-600 dark:text-slate-400  transition-all shadow-sm">
-                  <Layers size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">{cap}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Solusi terintegrasi untuk hasil maksimal.</p>
-                </div>
-              </Card>
-            ))}
+            {content.capabilitiesList.map((cap, idx) => {
+              const CapabilityIcon = capabilityIconMap[cap.title] ?? Layers;
+              return (
+                <Card key={idx} className="p-8 flex items-start gap-4 group transition-all duration-300 hover:-translate-y-1 relative z-0 hover:z-10 will-change-transform">
+                  <div className="p-4 bg-slate-100 dark:bg-slate-700/50 rounded-2xl text-slate-600 dark:text-slate-400  transition-all shadow-sm">
+                    <CapabilityIcon size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">{cap.title}</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{cap.content}</p>
+                  </div>
+                </Card>
+              );
+            })}
 
             {/* Lihat  Selengkapnya */}
             <Link href="/services" className="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-brand hover:bg-brand/5 dark:hover:bg-brand/10 transition-all group relative z-0 hover:z-10 will-change-transform">
@@ -270,16 +279,22 @@ export default function Home() {
     ),
 
     process: (
-      <section className={getSectionClasses('process')}>
+      <section className={`${getSectionClasses('process')} bg-slate-900`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className={`mb-16 ${getAlignClass('process')}`}>
             <h2 className="text-3xl font-extrabold mb-4 text-slate-900 dark:text-white">Proses Kerja</h2>
             <div className="w-16 h-1.5 bg-brand-gradient rounded-full mt-4 mb-6"></div>
-            <p className="opacity-70 max-w-2xl text-lg">Transparan, terstruktur, dan berorientasi hasil.</p>
+            <p className="opacity-70 text-lg">Azefine Worker membantu bisnis merancang, membangun, dan menjalankan solusi teknologi secara end-to-end. Tim kami fleksibel, proses kerja jelas, dan komunikasi rapi agar proyek berjalan terarah dan bisa dipelihara jangka panjang.</p>
           </div>
+          <div className="grid grid-cols-3 gap-5">
+            {["Tim profesional terkurasi sesuai kebutuhan proyek.", "Proses kerja jelas: scope, timeline, dan reporting rapi", "Solusi siap pakai, mudah dikembangkan, dan sustainable"].map((i, index: number) => (
+              <div className="flex gap-2" key={index}>
+                <Check /><h1>{i}</h1>
+              </div>
+            ))}
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {parseList(content.processSteps).map((step, idx) => {
+
+            {/* {parseList(content.processSteps).map((step, idx) => {
               const [title, desc] = step.split(':').map(s => s.trim());
               return (
                 <div key={idx} className="relative group p-6 rounded-2xl hover:bg-white dark:hover:bg-cardbg hover:shadow-xl transition-all duration-300 border border-transparent hover:border-slate-100 dark:hover:border-slate-700">
@@ -293,26 +308,72 @@ export default function Home() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{desc || 'Deskripsi tahapan kerja.'}</p>
                 </div>
               );
-            })}
+            })} */}
+          </div>
+
+          <div className="grid grid-cols-1 pt-8">
+            <Link href={'/about'} className={`${buttonVariants()} rounded-4xl bg-brand-gradient text-white p-5`}>
+              Lihat Cara Kerja Kami <ArrowRightIcon />
+            </Link>
           </div>
         </div>
       </section>
     ),
 
+    // dis: (
+    //   <div className="bg-white min-h-screen">
+    //     <h1>Hellko world</h1>
+    //   </div>
+    // ),
+
     whyUs: (
       <section className={getSectionClasses('whyUs')}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`max-w-3xl mx-auto mb-16 ${getAlignClass('whyUs')}`}>
+        <div className="grid grid-cols-2 max-w-7xl mx-auto gap-5">
+
+          {/* Text Section */}
+          <div className="max-w-3/4">
             <h2 className="text-3xl lg:text-4xl font-extrabold mb-4 text-slate-900 dark:text-white">
               Kenapa Memilih <span className="text-brand">Azefine?</span>
             </h2>
             <p className="text-lg opacity-70">
-              Partner eksekusi yang menjembatani kebutuhan teknis dan operasional.
+              Kami Bukan Sekadar Vendor, Kami Partner Teknologi Anda
+              <br /><br />
+              Azefine Worker hadir sebagai mitra IT yang memahami kebutuhan bisnis lokal.
+              <br /><br /> <br />
+              Kami tidak hanya memberikan solusi teknis, tetapi juga berpikir sebagai bagian dari tim internal Anda untuk memastikan teknologi mendukung pertumbuhan bisnis Anda secara berkelanjutan.
             </p>
           </div>
 
+          {/* Accordion */}
+          <div>
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="item-1"
+              className="max-w-lg"
+            >
+              {content.whyUsPoints.map((item) => (
+                <AccordionItem key={item.value} value={item.value}>
+                  <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                  <AccordionContent>
+                    <div>
+                      {item.content.list.map((it, index: number) => (
+                        <h1 key={index} className="flex font-bold gap-2">
+                          - <AccordionContent >{it}</AccordionContent>
+                        </h1>
+                      ))}
+                      {item.content.footer && (
+                        <h1>{item.content.footer}</h1>
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+          </div>
           {/* Standard Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 isolate">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 isolate">
             {parseList(content.whyUsPoints).map((point, idx) => {
               const [title, desc] = point.split(':').map(s => s.trim());
               const Icons = [Shield, Clock, Target, Users, Award, Zap];
@@ -338,7 +399,7 @@ export default function Home() {
               <h3 className="text-xl font-bold mb-3">Future Ready</h3>
               <p className="opacity-90 leading-relaxed text-sm">Teknologi kami dirancang untuk scalability dan update jangka panjang.</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     ),

@@ -17,11 +17,60 @@ const MOCK_CONTENT: SiteContent = {
     solutionsList: ["Automasi alur kerja bisnis", "Managed IT Services & Maintenance", "Tim on-demand sesuai kebutuhan project", "Harga modular, bayar apa yang dipakai"],
 
     // Capabilities
-    capabilitiesList: ["Web & App Development", "CCTV & Networking Installation", "Procurement Hardware", "Digital Marketing Strategy", "Operational Dashboard"],
-
+    capabilitiesList: [
+        {
+            title: "Web & App Development",
+            content: "Pengembangan website, web app, dan mobile app yang cepat, aman, dan scalable siap dipakai dan mudah dikembangkan."
+        },
+        {
+            title: `UI/UX & Digital Design`,
+            content: "Desain UI/UX, prototyping, design system, dan visual digital yang modern untuk meningkatkan konversi dan pengalaman pengguna."
+        },
+        {
+            title: `Cloud & Infrastructure`,
+            content: "Setup dan optimasi server/cloud, network, security, serta deployment environment yang stabil untuk kebutuhan bisnis Anda."
+        },
+        {
+            title: "IT Consulting & Planning",
+            content: "Konsultasi teknis, arsitektur sistem, roadmap digital, dan rekomendasi solusi berbasis kebutuhan bisnis (bukan sekadar teori)."
+        },
+        {
+            title: `DevOps & System Automation`,
+            content: "CI/CD pipeline, monitoring, backup, dan automation workflow agar delivery lebih cepat, rapi, dan minim downtime."
+        },
+        {
+            title: "IT Support & Maintenance",
+            content: "Maintenance rutin, troubleshooting, monitoring, patching, dan perawatan sistem agar operasional bisnis tetap aman dan lancar."
+        }
+    ],
 
     processSteps: "Konsultasi:Diskusi mendalam mengenai pain point bisnis Anda.\nPerancangan:Kami menyusun roadmap solusi teknis & budget.\nEksekusi:Implementasi sistem dengan update berkala.\nMaintenance:Dukungan purna jual untuk memastikan kelancaran.",
-    whyUsPoints: "Fleksibilitas:Skema kerja yang menyesuaikan dinamika bisnis.\nTransparansi:Laporan progress dan biaya yang terbuka.\nExpertise:Tim dengan pengalaman lintas industri.",
+
+    whyUsPoints: [
+        {
+            value: "val-1", trigger: "Mengapa memilih Azefine Worker sebagai partner IT?", content: {
+                header: "Kami berbeda karena:",
+                list: ["Tim yang dipilih sesuai kebutuhan proyek Anda", "Proses kerja yang jelas: scope, timeline, dan reporting transparan", "Solusi yang benar-benar siap pakai, bukan sekadar demo", "Harga kompetitif dengan value yang jelas", "Support pasca delivery yang responsif dan solutif"],
+                footer: "",
+            }
+        },
+        {
+            value: "val-2", trigger: "Apa yang membedakan Azefine Worker dari vendor IT lain?", content: {
+                header: "3 hal yang membedakan kami:",
+                list: ["Tim fleksibel yang bisa disesuaikan dengan kebutuhan proyek", "Proses kerja jelas: scope, timeline, dan reporting transparan", "Solusi yang benar-benar siap pakai, bukan sekadar demo"],
+                footer: "Kami bekerja sebagai perpanjangan tim internal Anda, bukan sekadar vendor yang memberikan produk jadi."
+            }
+        },
+        {
+            value: "val-3", trigger: "Apakah ada biaya tambahan di luar harga penawaran?", content: {
+                header: "idak. Harga yang kami tawarkan sudah termasuk:",
+                list: ["Development sesuai scope", "Testing dan quality assurance", "Training pengguna", "1 bulan maintenance gratis"],
+                footer: "Kami menggunakan sistem pembayaran sesuai milestone,tanpa biaya tersembunyi."
+            }
+        },
+    ],
+
+
     finalCtaTitle: "Siap Mengoptimalkan Bisnis Anda?",
     finalCtaSubtitle: "Jadwalkan sesi konsultasi gratis 30 menit bersama tim ahli kami.",
     aboutText: "Azefine Worker bermula dari keresahan akan kakunya layanan agensi konvensional. Kami hadir sebagai 'Worker Collective' yang siap terjun langsung membereskan masalah teknis di lapangan maupun di sistem cloud Anda.",
@@ -35,8 +84,14 @@ const MOCK_CONTENT: SiteContent = {
         address: 'South Quarter, Tower A, Jl. R.A. Kartini Kav 8, Cilandak, Jakarta Selatan',
         hours: 'Senin - Jumat, 09:00 - 17:00'
     },
-    sectionVisibility: { hero: true, problemSolution: true, capabilities: true, process: true, services: true, products: true, whyUs: true, blog: true, cta: true },
-    sectionOrder: ['hero', 'problemSolution', 'capabilities', 'process', 'services', 'products', 'whyUs', 'blog', 'cta'],
+
+    // Ini buat aktifin Section
+    sectionVisibility: { hero: true, problemSolution: true, capabilities: true, process: true, services: true, products: true, whyUs: true, blog: true, cta: true, dis: false },
+
+    // Ini list sectionnya
+    sectionOrder: ['hero', 'problemSolution', 'capabilities', 'process', 'services', 'products', 'dis', 'whyUs', 'blog', 'cta'],
+
+
     sectionStyles: {
         hero: { variant: 'default', align: 'left', padding: 'normal' },
         cta: { variant: 'brand', align: 'center', padding: 'loose' }

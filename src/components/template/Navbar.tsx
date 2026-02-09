@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useCurrentUser } from "@/components/AuthUserProvider";
+import ThemeToggle from "./ThemeToggle";
 
 
 const AzefineLogo = () => (
@@ -28,7 +29,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const user = useCurrentUser();
-  const { resolvedTheme, setTheme } = useTheme();
 
   // Handle Scroll Effect
   useEffect(() => {
@@ -51,9 +51,6 @@ const Navbar = () => {
   // const isActive = navLinks.some((link) => pathname === link.path)
   const isActive = (path: string) => pathname === path;
 
-  // Theming
-  const effectiveTheme = resolvedTheme ?? "light";
-  const toggleTheme = () => setTheme(effectiveTheme === "dark" ? "light" : "dark");
 
   // Logout
   const handleLogout = () => {
@@ -96,18 +93,12 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-4">
             {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-accent transition-colors"
-              aria-label="Toggle theme"
-            >
-              {effectiveTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            <ThemeToggle />
 
             <div className="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
 
             {user ? (
-              <div className="flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-3">
                 <Link href="/user-dashboard" className="text-sm font-bold text-slate-700 dark:text-white hover:text-brand flex items-center gap-2 group">
                   <div className="w-9 h-9 rounded-full bg-brand-gradient text-white flex items-center justify-center text-xs ring-2 ring-transparent group-hover:ring-brand/30 transition-all">
                     {(user.name ?? "U").charAt(0)}
@@ -126,9 +117,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-3">
-            <button onClick={toggleTheme} className="p-2 text-slate-500" aria-label="Toggle theme">
-              {effectiveTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            <ThemeToggle />
             <button onClick={() => setIsOpen(!isOpen)} className="text-slate-800 dark:text-white focus:outline-none p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

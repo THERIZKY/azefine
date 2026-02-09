@@ -60,6 +60,7 @@ export interface HomepageSectionVisibility {
     services: boolean;
     products: boolean;
     whyUs: boolean;
+    dis: boolean;
     blog: boolean;
     cta: boolean;
 }
@@ -75,9 +76,13 @@ export interface SiteContent {
     heroSubtitle: string;
     problemsList: string[];
     solutionsList: string[];
-    capabilitiesList: string[];
+    capabilitiesList: { title: string; content: string }[];
     processSteps: string;
-    whyUsPoints: string;
+    whyUsPoints: {
+        value: string;
+        trigger: string;
+        content: { header: string; list: string[]; footer: string };
+    }[];
     finalCtaTitle: string;
     finalCtaSubtitle: string;
     aboutText: string;
