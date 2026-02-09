@@ -124,7 +124,9 @@ export default function Home() {
     // We define the sections as render functions to pass props easily
     const SECTION_COMPONENTS: Record<string, ReactNode> = {
         hero: (
-            <div className={`min-h-screen dark:bg-slate-950 grid items-center`}>
+            <div
+                className={`min-h-screen bg-[#8ce3e3] dark:bg-slate-950 grid items-center`}
+            >
                 {/* Background With This Shit */}
                 {/* <PixelBlastBackground /> */}
                 <GalaxyBackground />
@@ -141,7 +143,7 @@ export default function Home() {
                                 <Zap size={16} className="fill-brand/20" />
                                 Solusi Teknologi Terintegrasi
                             </div>
-                            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-slate-900 dark:text-white drop-shadow-sm">
+                            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-[#006b6b] dark:text-white drop-shadow-sm">
                                 {content.heroTitle}
                             </h1>
                             <p className="text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0 font-medium">
@@ -153,7 +155,7 @@ export default function Home() {
                                 <Button
                                     onClick={() => router.push("/contact")}
                                     variant="primary"
-                                    className="!px-8 !py-4 text-base shadow-glow hover:shadow-glow/80"
+                                    className="px-8 py-4 text-base shadow-glow hover:shadow-glow/80"
                                 >
                                     Konsultasi Kebutuhan{" "}
                                     <ArrowRight size={18} className="ml-2" />
@@ -161,7 +163,7 @@ export default function Home() {
                                 <Button
                                     onClick={() => router.push("/services")}
                                     variant="outline"
-                                    className="px-8 py-4 text-base backdrop-blur-sm bg-white/30 dark:bg-black/10 border-slate-300 dark:border-slate-600 hover:bg-white"
+                                    className="px-8 py-4 text-base backdrop-blur-sm bg-white/30 dark:bg-black/10 border-slate-800 dark:border-slate-600 hover:bg-white"
                                 >
                                     Eksplorasi Layanan
                                 </Button>
