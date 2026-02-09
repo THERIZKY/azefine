@@ -125,7 +125,7 @@ export default function Home() {
     const SECTION_COMPONENTS: Record<string, ReactNode> = {
         hero: (
             <div
-                className={`min-h-screen bg-[#8ce3e3] dark:bg-slate-950 grid items-center`}
+                className={`min-h-screen bg-[#E9F3F1] dark:bg-slate-950 grid items-center`}
             >
                 {/* Background With This Shit */}
                 {/* <PixelBlastBackground /> */}
